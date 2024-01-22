@@ -1,5 +1,3 @@
-package introduction;
-import java.util.*;
 
 
 public class plus2 {

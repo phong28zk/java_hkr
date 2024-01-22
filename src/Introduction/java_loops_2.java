@@ -1,7 +1,6 @@
-package introduction;
+
 
 import java.util.*;
-import java.io.*;
 
 class java_loops_2 {
     public static void Solve(Scanner in){

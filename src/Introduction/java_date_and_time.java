@@ -1,10 +1,9 @@
-package introduction;
+
 
 import java.io.*;
 import java.util.*;
 import java.util.Calendar;
 
-import static java.util.stream.Collectors.joining;
 
 class Result {
 

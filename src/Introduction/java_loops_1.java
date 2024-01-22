@@ -1,4 +1,4 @@
-package Introduction;
+package introduction;
 
 import java.io.*;
 import java.math.*;

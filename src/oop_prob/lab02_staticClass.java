@@ -1,11 +1,12 @@
+import java.math.BigInteger;
 import java.util.*;
 
 class User {
     String id, username;
-    long balance;
-    static long nextId;
+    BigInteger balance;
+    static int nextId;
 
-    User(String username, long balance) {
+    User(String username, BigInteger balance) {
         this.username = username;
         this.balance = balance;
         this.id = getNextId();
@@ -25,7 +26,7 @@ class User {
         return this.username;
     }
 
-    long getBalance() {
+    BigInteger getBalance() {
         return this.balance;
     }
 }
@@ -39,25 +40,25 @@ class Utils {
         return null;
     }
 
-    static boolean isExistUser(List<User> users, String id) {
-        for(User user : users) {
-            if(user.id.equals(id)) return true;
-        }
-        return false;
+    static void increaseBalance(User user, BigInteger amount) {
+        user.balance = user.balance.add(amount);
     }
 
-    static void increaseBalance(User user, long amount) {
-        user.balance += amount;
-    }
-
-    static void decreaseBalance(User user, long amount) {
-        user.balance -= amount;
+    static void decreaseBalance(User user, BigInteger amount) {
+        user.balance = user.balance.subtract(amount);
     }
 
     static void printUser(List<User> users) {
         for(User user: users) {
             System.out.print("[" + user.id + ", " + user.username + ", " + user.balance + "]");
         }
+    }
+
+    static boolean isExistUser(List<User> users, String id) {
+        for(User user : users) {
+            if(user.id.equals(id)) return true;
+        }
+        return false;
     }
 
 }
@@ -74,7 +75,8 @@ public class lab02_staticClass {
             String[] splitInput = input.split("\\s+");
             String regex = "\\d+";
             String username = "";
-            int balance = 0;
+            BigInteger balance = BigInteger.ZERO;
+
             for(int i=1; i<splitInput.length; i++) {
                 if(!splitInput[i].matches(regex)) {
                     username += splitInput[i];
@@ -82,10 +84,10 @@ public class lab02_staticClass {
                         username += " ";
                     }
                 } else {
-                    balance = Integer.parseInt(splitInput[i]);
+                    balance = BigInteger.valueOf(Integer.parseInt(splitInput[i]));
                     users.add(new User(username, balance));
                     username = "";
-                    balance = 0;
+                    balance = BigInteger.ZERO;
                 }
             }
 
@@ -107,7 +109,8 @@ public class lab02_staticClass {
                     i+=3;
                 } else if(splitTransaction[i].equals("nap")) {
                     String id = splitTransaction[i+1];
-                    long amount = Integer.parseInt(splitTransaction[i+2]);
+                    BigInteger amount = BigInteger.valueOf(Integer.parseInt(splitTransaction[i+2]));
+
 
                     User user = Utils.findUserById(users, id);
                     if(!Utils.isExistUser(users, id)) {
@@ -119,12 +122,12 @@ public class lab02_staticClass {
                 } else if(splitTransaction[i].equals("rut")) {
 
                     String id = splitTransaction[i+1];
-                    long amount = Integer.parseInt(splitTransaction[i+2]);
+                    BigInteger amount = new BigInteger(splitTransaction[i+2]);
 
                     User user = Utils.findUserById(users, id);
                     if(!Utils.isExistUser(users, id)) {
                         i+=3;
-                    } else if(user.balance < amount) {
+                    } else if(user.balance.compareTo(amount) < 0) {
                         i+=3;
                     } else {
                         Utils.decreaseBalance(user, amount);
@@ -134,17 +137,18 @@ public class lab02_staticClass {
 
                     String id1 = splitTransaction[i+1];
                     String id2 = splitTransaction[i+2];
-                    long amount = Integer.parseInt(splitTransaction[i+3]);
+                    BigInteger amount = BigInteger.valueOf(Integer.parseInt(splitTransaction[i+3]));
+
 
                     User user1 = Utils.findUserById(users, id1);
                     User user2 = Utils.findUserById(users, id2);
-                    
-                    if(!Utils.isExistUser(users, id1) || !Utils.isExistUser(users, id2)) {
+
+                    if (!Utils.isExistUser(users, id1) || !Utils.isExistUser(users, id2)) {
                         i += 4;
-                    } else if(user1.balance < amount) {
-                        
+                    } else if (user1.balance.compareTo(amount) < 0){
+
                         i += 4;
-                        
+
                     } else {
                         Utils.decreaseBalance(user1, amount);
                         Utils.increaseBalance(user2, amount);

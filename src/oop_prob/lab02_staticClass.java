@@ -43,6 +43,13 @@ class Utils {
         return null;
     }
 
+    static boolean isExistUser(List<User> users, String id) {
+        for(User user : users) {
+            if(user.id.equals(id)) return true;
+        }
+        return false;
+    }
+
     static void increaseBalance(User user, long amount) {
         user.balance += amount;
     }
@@ -103,15 +110,29 @@ public class lab02_staticClass {
                     System.out.println("Invalid Input");
                     return;
                 } else if(splitTransaction[i].equals("nap")) {
+
                     String id = splitTransaction[i+1];
                     long amount = Integer.parseInt(splitTransaction[i+2]);
+
                     User user = Utils.findUserById(users, id);
+                    if(!Utils.isExistUser(users, id)) {
+                        System.out.println("Invalid Input");
+                        return;
+                    }
+                    
                     Utils.increaseBalance(user, amount);
                     i += 3;
                 } else if(splitTransaction[i].equals("rut")) {
+
                     String id = splitTransaction[i+1];
                     long amount = Integer.parseInt(splitTransaction[i+2]);
+
                     User user = Utils.findUserById(users, id);
+                    if(!Utils.isExistUser(users, id)) {
+                        System.out.println("Invalid Input");
+                        return;
+                    }
+                    
                     if(user.balance < amount) {
                         for(User userX: users) {
                             System.out.print("[" + userX.id + ", " + userX.username + ", " + userX.balance + "]");
@@ -123,11 +144,20 @@ public class lab02_staticClass {
                     }
                     i += 3;
                 } else if(splitTransaction[i].equals("chuyen")) {
+
                     String id1 = splitTransaction[i+1];
                     String id2 = splitTransaction[i+2];
                     long amount = Integer.parseInt(splitTransaction[i+3]);
+
                     User user1 = Utils.findUserById(users, id1);
                     User user2 = Utils.findUserById(users, id2);
+                    
+                    if(!Utils.isExistUser(users, id1) || !Utils.isExistUser(users, id2)) {
+                        System.out.println("Invalid Input");
+                        return;
+                    }
+
+                    
                     if(user1.balance < amount) {
                         for(User user: users) {
                             System.out.print("[" + user.id + ", " + user.username + ", " + user.balance + "]");

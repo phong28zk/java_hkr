@@ -35,12 +35,18 @@ class User {
 
 class Utils {
     static User findUserById(List<User> users, String id) {
+        int idInt = Integer.parseInt(id);
         for(User user : users) {
-            if(user.id.equals(id)) return user;
-            // System.out.println("User: " + user.id + " " + user.username + " " + user.balance);
+            if(Integer.parseInt(user.id) == idInt) 
+            {
+                // System.out.println("User: " + user.id + " " + user.username + " " + user.balance);
+                return user;
+            }
         }
         return null;
     }
+
+
 
     static void increaseBalance(User user, BigDecimal amount) {
         user.balance = user.balance.add(amount);
@@ -57,8 +63,13 @@ class Utils {
     }
 
     static boolean isExistUser(List<User> users, String id) {
+        int idInt = Integer.parseInt(id);
         for(User user : users) {
-            if(user.id.equals(id)) return true;
+            if(Integer.parseInt(user.id) == idInt) 
+            {
+                // System.out.println("User: " + user.id + " " + user.username + " " + user.balance);
+                return true;
+            }
         }
         return false;
     }
@@ -113,6 +124,8 @@ public class lab02_staticClass {
                 } else if(splitTransaction[i].equals("nap")) {
 
                     String id = splitTransaction[i+1];
+                    
+
                     BigDecimal amount = new BigDecimal(splitTransaction[i+2]);
 
                     User user = Utils.findUserById(users, id);
@@ -125,6 +138,7 @@ public class lab02_staticClass {
                 } else if(splitTransaction[i].equals("rut")) {
 
                     String id = splitTransaction[i+1];
+
                     BigDecimal amount = new BigDecimal(splitTransaction[i+2]);
 
                     User user = Utils.findUserById(users, id);
@@ -140,6 +154,7 @@ public class lab02_staticClass {
 
                     String id1 = splitTransaction[i+1];
                     String id2 = splitTransaction[i+2];
+
                     BigDecimal amount = new BigDecimal(splitTransaction[i+3]);
 
                     User user1 = Utils.findUserById(users, id1);

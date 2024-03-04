@@ -4,6 +4,7 @@ import java.util.*;
 
 public class stdin_stdout_1 {
 
+    @SuppressWarnings("resource")
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         int a = scan.nextInt();

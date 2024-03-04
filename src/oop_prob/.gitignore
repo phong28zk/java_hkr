@@ -1,3 +1,4 @@
-# Ignore .cph
+# Ignore .cph and .class
 .cph/
+*.class
 ```

@@ -1,8 +1,4 @@
 import java.util.*;
-import java.lang.*;
-import java.lang.String.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 class User {
     String id, username;
@@ -67,6 +63,7 @@ class Utils {
 }
 
 public class lab02_staticClass {
+    @SuppressWarnings("resource")
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         List<User> users = new ArrayList<User>();
@@ -77,9 +74,8 @@ public class lab02_staticClass {
             String[] splitInput = input.split("\\s+");
             String regex = "\\d+";
             String username = "";
-            long balance = 0;
+            int balance = 0;
             for(int i=1; i<splitInput.length; i++) {
-                // System.out.println(splitInput[i]);
                 if(!splitInput[i].matches(regex)) {
                     username += splitInput[i];
                     if(!splitInput[i+1].matches(regex)) {
@@ -97,31 +93,29 @@ public class lab02_staticClass {
                 for(User user: users) {
                     System.out.print("[" + user.id + ", " + user.username + ", " + user.balance + "]");
                 }
-                break;
+                return;
             }
 
             String transaction = sc.nextLine();
             String[] splitTransaction = transaction.split("\\s+");
             
             for(int i=1; i<splitTransaction.length; ) {
+
                 if(!splitTransaction[i].equals("nap")
                 && !splitTransaction[i].equals("rut")
                 && !splitTransaction[i].equals("chuyen")) {
-                    System.out.println("Invalid Input");
-                    return;
+                    i+=3;
                 } else if(splitTransaction[i].equals("nap")) {
-
                     String id = splitTransaction[i+1];
                     long amount = Integer.parseInt(splitTransaction[i+2]);
 
                     User user = Utils.findUserById(users, id);
                     if(!Utils.isExistUser(users, id)) {
-                        System.out.println("Invalid Input");
-                        return;
+                        i+=3;
+                    } else {
+                        Utils.increaseBalance(user, amount);
+                        i+=3;
                     }
-                    
-                    Utils.increaseBalance(user, amount);
-                    i += 3;
                 } else if(splitTransaction[i].equals("rut")) {
 
                     String id = splitTransaction[i+1];
@@ -129,20 +123,13 @@ public class lab02_staticClass {
 
                     User user = Utils.findUserById(users, id);
                     if(!Utils.isExistUser(users, id)) {
-                        System.out.println("Invalid Input");
-                        return;
-                    }
-                    
-                    if(user.balance < amount) {
-                        for(User userX: users) {
-                            System.out.print("[" + userX.id + ", " + userX.username + ", " + userX.balance + "]");
-                        }
-                        System.out.println("Invalid Input");
-                        return;
+                        i+=3;
+                    } else if(user.balance < amount) {
+                        i+=3;
                     } else {
                         Utils.decreaseBalance(user, amount);
+                        i+=3;
                     }
-                    i += 3;
                 } else if(splitTransaction[i].equals("chuyen")) {
 
                     String id1 = splitTransaction[i+1];
@@ -153,27 +140,23 @@ public class lab02_staticClass {
                     User user2 = Utils.findUserById(users, id2);
                     
                     if(!Utils.isExistUser(users, id1) || !Utils.isExistUser(users, id2)) {
-                        System.out.println("Invalid Input");
-                        return;
-                    }
-
-                    
-                    if(user1.balance < amount) {
-                        for(User user: users) {
-                            System.out.print("[" + user.id + ", " + user.username + ", " + user.balance + "]");
-                        }
-                        System.out.println();
-                        System.out.println("Invalid Input");
-                        return;
+                        i += 4;
+                    } else if(user1.balance < amount) {
+                        
+                        i += 4;
+                        
                     } else {
                         Utils.decreaseBalance(user1, amount);
                         Utils.increaseBalance(user2, amount);
+                        i += 4;
                     }
-                    i += 4;
                 }
             }
             
             Utils.printUser(users);
+            System.out.println();
+            users = new ArrayList<User>();
+            User.nextId = 0;
         }
     }
 }

@@ -84,7 +84,7 @@ public class lab02_staticClass {
                         username += " ";
                     }
                 } else {
-                    balance = BigDecimal.valueOf(Integer.parseInt(splitInput[i]));
+                    balance = new BigDecimal(splitInput[i]);
                     users.add(new User(username, balance));
                     username = "";
                     balance = BigDecimal.ZERO;
@@ -106,11 +106,12 @@ public class lab02_staticClass {
                 if(!splitTransaction[i].equals("nap")
                 && !splitTransaction[i].equals("rut")
                 && !splitTransaction[i].equals("chuyen")) {
+                    System.out.println("invalid input");
                     i+=3;
                 } else if(splitTransaction[i].equals("nap")) {
+
                     String id = splitTransaction[i+1];
                     BigDecimal amount = new BigDecimal(splitTransaction[i+2]);
-
 
                     User user = Utils.findUserById(users, id);
                     if(!Utils.isExistUser(users, id)) {
@@ -139,16 +140,13 @@ public class lab02_staticClass {
                     String id2 = splitTransaction[i+2];
                     BigDecimal amount = new BigDecimal(splitTransaction[i+3]);
 
-
                     User user1 = Utils.findUserById(users, id1);
                     User user2 = Utils.findUserById(users, id2);
 
                     if (!Utils.isExistUser(users, id1) || !Utils.isExistUser(users, id2)) {
                         i += 4;
                     } else if (user1.balance.compareTo(amount) < 0){
-
                         i += 4;
-
                     } else {
                         Utils.decreaseBalance(user1, amount);
                         Utils.increaseBalance(user2, amount);

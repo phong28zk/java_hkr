@@ -1,12 +1,12 @@
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.*;
 
 class User {
     String id, username;
-    BigInteger balance;
+    BigDecimal balance;
     static int nextId;
 
-    User(String username, BigInteger balance) {
+    User(String username, BigDecimal balance) {
         this.username = username;
         this.balance = balance;
         this.id = getNextId();
@@ -26,7 +26,7 @@ class User {
         return this.username;
     }
 
-    BigInteger getBalance() {
+    BigDecimal getBalance() {
         return this.balance;
     }
 }
@@ -40,11 +40,11 @@ class Utils {
         return null;
     }
 
-    static void increaseBalance(User user, BigInteger amount) {
+    static void increaseBalance(User user, BigDecimal amount) {
         user.balance = user.balance.add(amount);
     }
 
-    static void decreaseBalance(User user, BigInteger amount) {
+    static void decreaseBalance(User user, BigDecimal amount) {
         user.balance = user.balance.subtract(amount);
     }
 
@@ -75,7 +75,7 @@ public class lab02_staticClass {
             String[] splitInput = input.split("\\s+");
             String regex = "\\d+";
             String username = "";
-            BigInteger balance = BigInteger.ZERO;
+            BigDecimal balance = BigDecimal.ZERO;
 
             for(int i=1; i<splitInput.length; i++) {
                 if(!splitInput[i].matches(regex)) {
@@ -84,10 +84,10 @@ public class lab02_staticClass {
                         username += " ";
                     }
                 } else {
-                    balance = BigInteger.valueOf(Integer.parseInt(splitInput[i]));
+                    balance = BigDecimal.valueOf(Integer.parseInt(splitInput[i]));
                     users.add(new User(username, balance));
                     username = "";
-                    balance = BigInteger.ZERO;
+                    balance = BigDecimal.ZERO;
                 }
             }
 
@@ -109,7 +109,7 @@ public class lab02_staticClass {
                     i+=3;
                 } else if(splitTransaction[i].equals("nap")) {
                     String id = splitTransaction[i+1];
-                    BigInteger amount = BigInteger.valueOf(Integer.parseInt(splitTransaction[i+2]));
+                    BigDecimal amount = new BigDecimal(splitTransaction[i+2]);
 
 
                     User user = Utils.findUserById(users, id);
@@ -122,7 +122,7 @@ public class lab02_staticClass {
                 } else if(splitTransaction[i].equals("rut")) {
 
                     String id = splitTransaction[i+1];
-                    BigInteger amount = new BigInteger(splitTransaction[i+2]);
+                    BigDecimal amount = new BigDecimal(splitTransaction[i+2]);
 
                     User user = Utils.findUserById(users, id);
                     if(!Utils.isExistUser(users, id)) {
@@ -137,7 +137,7 @@ public class lab02_staticClass {
 
                     String id1 = splitTransaction[i+1];
                     String id2 = splitTransaction[i+2];
-                    BigInteger amount = BigInteger.valueOf(Integer.parseInt(splitTransaction[i+3]));
+                    BigDecimal amount = new BigDecimal(splitTransaction[i+3]);
 
 
                     User user1 = Utils.findUserById(users, id1);

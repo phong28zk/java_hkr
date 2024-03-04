@@ -47,7 +47,10 @@ class User {
     }
 }
 
+
+
 class Utils {
+
     static String formatDateInput(String input) {
         if(input.length()!=7) return null;
         return input.substring(3,5) + " " + input.substring(0,3) + " " + input.substring(5,7);
@@ -70,6 +73,7 @@ class Utils {
         }
         return null;
     }
+
 }
 
 public class elab2315 {
@@ -82,6 +86,7 @@ public class elab2315 {
             String acc = sc.nextLine();
             User newUser = new User(acc);
             users.add(newUser);
+            // System.out.println("Account: " + newUser.username + " | ID: " + newUser.id); // debug account
         }
         while(sc.hasNextLine()) {
             String userId = sc.next();

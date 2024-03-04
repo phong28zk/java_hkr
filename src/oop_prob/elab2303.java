@@ -19,10 +19,10 @@ public class elab2303 {
         MyStuff m1 = new MyStuff("PC");
         MyStuff m2 = new MyStuff("PC");
 
-        System.out.println("Ref of m1: " + m1.hashCode());
-        System.out.println("Ref of m2: " + m2.hashCode());
-        System.out.println("Value of m1: " + m1.getValue());
-        System.out.println("Value of m2: " + m2.getValue());
+        // System.out.println("Ref of m1: " + m1.hashCode());
+        // System.out.println("Ref of m2: " + m2.hashCode());
+        // System.out.println("Value of m1: " + m1.getValue());
+        // System.out.println("Value of m2: " + m2.getValue());
 
         if (m1.getValue().equals(m2.getValue())) {
             System.out.println("value compared: same");

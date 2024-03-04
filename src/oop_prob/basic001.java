@@ -2,6 +2,8 @@ import java.util.*;
 import java.lang.*;
 import java.io.*;
 
+@SuppressWarnings("all")
+
 public class basic001
 {
 	public static void main(String[] args) 

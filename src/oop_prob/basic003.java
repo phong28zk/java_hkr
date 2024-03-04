@@ -1,5 +1,7 @@
 import java.util.*;
 
+@SuppressWarnings("all")
+
 class HiAdaLovelace {
     
 }

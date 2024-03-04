@@ -1,3 +1,4 @@
+@SuppressWarnings("all")
 class Normal { 
     private String msg;
     private String poly;

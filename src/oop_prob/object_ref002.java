@@ -2,6 +2,8 @@ import java.util.*;
 import java.lang.*;
 import java.io.*;
 
+@SuppressWarnings("all")
+
 class SimpleDate {
     int day, month, year;
 

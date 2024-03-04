@@ -2,8 +2,10 @@ import java.util.*;
 import java.lang.*;
 import java.io.*;
 import java.math.BigInteger;
-
 import java.util.*;
+
+@SuppressWarnings("all")
+
 public class lab01_bigint
 {
 	public static void main(String[] args) 

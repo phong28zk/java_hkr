@@ -1,5 +1,7 @@
 import java.util.*;
 
+@SuppressWarnings("all")
+
 class Point {
     private double x;
     private double y;

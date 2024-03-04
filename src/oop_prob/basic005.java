@@ -1,5 +1,7 @@
 import java.util.*;
 
+@SuppressWarnings("all")
+
 class Sum {
     private int a;
     private int b;

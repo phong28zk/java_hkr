@@ -1,5 +1,7 @@
 import java.util.*;
 
+@SuppressWarnings("all")
+
 class Dog {
     private static int id = 1;
     private String breed;

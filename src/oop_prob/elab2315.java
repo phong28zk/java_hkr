@@ -4,6 +4,8 @@ import java.lang.String.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@SuppressWarnings("all")
+
 class Note {
     String date, noted;
     int id;
@@ -17,7 +19,8 @@ class Note {
 
 class User {
     String id, username;
-    static int nextId;
+@SuppressWarnings("all")
+static int nextId;
     List<Note> notes = new ArrayList<Note>();
 
     User(String username) {

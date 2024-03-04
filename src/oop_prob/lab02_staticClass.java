@@ -1,6 +1,8 @@
 import java.math.BigDecimal;
 import java.util.*;
 
+@SuppressWarnings("all")
+
 class User {
     String id, username;
     BigDecimal balance;

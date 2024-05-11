@@ -48,3 +48,5 @@ public class inheritance001 {
         System.out.println(s.getCredits());
     }
 }
+
+

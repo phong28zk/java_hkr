@@ -4,12 +4,29 @@ import java.io.*;
 import java.lang.*;
 
 class Amount {
-    String currency;
-    int amount;
-
+    public String currency;
+    public int amount;
+    
     Amount(String currency, int amount) {
         this.currency = currency;
         this.amount = amount;
+    }
+    
+    public void add(Amount add) throws CurrencyMismatchException {
+        if(!this.currency.equals(add.currency)) {
+            throw new CurrencyMismatchException("Currency doesn't match");
+        }
+        this.amount += add.amount;
+    }
+    
+    public int getAmount() {
+        return amount;
+    }
+}
+
+class CurrencyMismatchException extends Exception {
+    public CurrencyMismatchException(String message) {
+        super(message);
     }
 }
 public class exception001 {
@@ -33,7 +50,8 @@ public class exception001 {
 
                     try {
                         if(a1.currency.equals(a2.currency)) {
-                            System.out.println(a1.amount + a2.amount);
+                            a1.add(a2);
+                            System.out.println(a1.getAmount());
                         } else {
                             throw new Exception("Currency doesn't match");
                         }

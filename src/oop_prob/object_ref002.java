@@ -1,41 +1,36 @@
-import java.util.*;
-import java.lang.*;
 import java.io.*;
+import java.lang.*;
+import java.util.*;
+import java.math.*;
 
-@SuppressWarnings("all")
-
-class SimpleDate {
-    int day, month, year;
-
-    SimpleDate(int day, int month, int year) {
+class SDate {
+    private int day;
+   	private int month;
+    private int year;
+    
+    SDate(int day, int month, int year) {
         this.day = day;
         this.month = month;
         this.year = year;
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
+    
+    public boolean equals(Object s) {
+         if (s instanceof SDate) {
+            SDate d = (SDate) s;
+            if (this.day == d.day && this.month == d.month && this.year == d.year) {
+                return true;
+            }
         }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        SimpleDate compareDay = (SimpleDate) obj;
-        return day == compareDay.day && month == compareDay.month && year == compareDay.year;
+        return false;
     }
-
 }
 
-public class object_ref002
-{
-	public static void main(String[] args) 
-	{
-		SimpleDate d = new SimpleDate(1, 2, 2020);
+public class object_ref002 {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+            SDate d = new SDate(1, 2, 2020);
         System.out.println(d.equals("heh"));
-        System.out.println(d.equals(new SimpleDate(5, 2, 2012)));
-        System.out.println(d.equals(new SimpleDate(1, 2, 2020)));
-
-
-    }
-} 
+        System.out.println(d.equals(new SDate(5, 2, 2012)));
+        System.out.println(d.equals(new SDate(1, 2, 2020)));
+        }
+}

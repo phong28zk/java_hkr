@@ -14,11 +14,9 @@ abstract class Car {
     
     @Override
     public String toString() {
-        String priceMod = String.format("%,.2f", calculateSalePrice());
-        String year = String.valueOf(this.year);
-        return "Price: " + priceMod + " VND | Year: " + year;
-
-    }
+        String res = String.format("Price: %,.2f VND | Year: %d", calculateSalePrice(), year);
+        return res;
+    };
 
     public abstract double calculateSalePrice();
 }

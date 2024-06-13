@@ -5,22 +5,22 @@ import java.util.*;
 class Person {
     String name;
     int age;
-
     Person(String name, int age) {
         this.name = name;
         this.age = age;
     }
-}
-public class exception004 {
-    public static void checkValid(String name, int age) throws Exception{
+    
+    void checkValid() throws Exception {
         if(name.equals("") || name.length() > 40) {
             throw new Exception("Name is not valid");
         } else if(age<0 || age>120) {
             throw new Exception("Age is not valid");
         } else {
-            System.out.printf("Name: %s--Age:%d%n", name, age);
+            System.out.printf("Name: %s--Age:%d\n", name, age);
         }
     }
+}
+public class exception004 {
     public static void main(String args[]) throws Exception {
         Scanner sc = new Scanner(System.in);
         int t = Integer.parseInt(sc.nextLine());
@@ -30,7 +30,7 @@ public class exception004 {
 
             Person p = new Person(name, age);
             try {
-                checkValid(p.name, p.age);
+                p.checkValid();
             } catch(Exception e) {
                 System.out.println(e.getMessage());
             }

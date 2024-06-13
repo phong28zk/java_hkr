@@ -25,11 +25,11 @@ class User {
     }
 
     String getName() {
-        return this.username;
+        return username;
     }
 
     BigDecimal getBalance() {
-        return this.balance;
+        return balance;
     }
 }
 

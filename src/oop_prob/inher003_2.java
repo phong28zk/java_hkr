@@ -111,7 +111,8 @@ class DiscountBill extends GroceryBill {
     }
 }
 
-public class inheritance002 {
+public class inher003_2
+ {
     public static void main(String[] args) {
         Employee e1 = new Employee(); e1.name = "Grocery Bill";
         Employee e2 = new Employee(); e2.name = "Discount Bill";

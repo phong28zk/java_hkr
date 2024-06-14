@@ -12,7 +12,6 @@ class FileNameFormatExeption extends Exception {
 class Test {
     public static void open_file(String s){
         try {
-            // Gọi phương thức f() ném ngoại lệ
             f(s);
         } catch (FileNameFormatExeption fname) {
             System.out.println(fname.getMessage());

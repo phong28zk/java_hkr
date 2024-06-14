@@ -1,73 +1,80 @@
+import java.io.*;
+import java.lang.*;
 import java.util.*;
+import java.math.*;
 
 abstract class TestQuestion {
     protected String question;
-    protected abstract void readQuestion(Scanner sc);
+    protected abstract void readQuestion();
 }
 
 class Essay extends TestQuestion {
-    private int blankLines;
-
+	private int lineEssay;
+    
     @Override
-    protected void readQuestion(Scanner sc) {
-        blankLines = Integer.parseInt(sc.nextLine());
+    protected void readQuestion() {
+    	Scanner sc = Main.getScanner();
+        lineEssay = Integer.parseInt(sc.nextLine());
         question = sc.nextLine();
     }
-
-    @Override
+    
     public String toString() {
-        return blankLines + "\n" + question;
+        return String.format("%d\n%s", lineEssay, question);
     }
 }
 
 class MultiChoice extends TestQuestion {
-    private ArrayList<String> choices;
-    int numberOfChoices;
-
+    List<String> choices = new ArrayList<String>();
+    int cs;
     @Override
-    protected void readQuestion(Scanner sc) {
-        numberOfChoices = Integer.parseInt(sc.nextLine());
-        
+    protected void readQuestion() {
+        Scanner sc = Main.getScanner();
+        cs = Integer.parseInt(sc.nextLine());
         question = sc.nextLine();
-        choices = new ArrayList<>();
-        for (int i = 0; i < numberOfChoices; i++) {
-            choices.add(sc.nextLine());
+        for(int i=0; i<cs; i++) {
+            String choice = sc.nextLine();
+            choices.add(choice);
         }
     }
-
-    @Override
+    
     public String toString() {
-        StringBuilder sb = new StringBuilder(question).append("\n");
-        System.out.println(numberOfChoices);
-        for (String choice : choices) {
-            sb.append(choice).append(choice.equals(choices.get(choices.size()-1)) ? "" : "\n");
+        System.out.println(cs);
+		StringBuilder sb = new StringBuilder(question).append("\n");
+        for(String choice : choices) {
+            sb.append(choice + "\n");
         }
-        return sb.toString();
+        return sb.toString().trim();
     }
 }
 
-
-public class inheritance007 {
+public class Main {
+    static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
-        // create static scanner
-        static Scanner sc = new Scanner(System.in);
-        String t = sc.nextLine();
-        int tt = Integer.parseInt(t);
+        Scanner sc = getScanner();
+        int tt = Integer.parseInt(sc.nextLine());
         System.out.println(tt);
+
         while(tt-->0) {
-            String type = sc.nextLine();
-            if (type.equals("e")) {
-                System.out.println("e");
-                Essay essay = new Essay();
-                essay.readQuestion(sc);
-                System.out.println(essay);
-            } else if (type.equals("m")) {
-                System.out.println("m");
-                MultiChoice multiChoice = new MultiChoice();
-                multiChoice.readQuestion(sc);
-                System.out.println(multiChoice);
+			String type = sc.nextLine();
+            System.out.println(type);
+            if(!type.equals("m") && !type.equals("e")) {
+                System.out.println("invalid input");
+                return;
+            } else {
+                if(type.equals("e")) {
+                    Essay e = new Essay();
+                    e.readQuestion();
+                    System.out.println(e.toString());
+                } else {
+                    MultiChoice m = new MultiChoice();
+                    m.readQuestion();
+                    System.out.println(m.toString());
+                    
+				}
             }
         }
-
     }
+     static Scanner getScanner() {
+         return sc;
+     }
 }

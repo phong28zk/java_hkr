@@ -74,6 +74,7 @@ public class lab02_staticAccount {
             int numberOfAccount = Integer.parseInt(splitInput[0]);
             String userName = "";
             BigDecimal balance = BigDecimal.ZERO;
+            String regexChar = "([A-Za-z\\s]+)\s+";
             String regex = "\\d+";
             // System.out.println(numberOfAccount);
             for(int i=1; i<splitInput.length; i++) {

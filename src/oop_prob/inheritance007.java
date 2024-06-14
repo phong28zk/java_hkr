@@ -49,7 +49,8 @@ class MultiChoice extends TestQuestion {
 
 public class inheritance007 {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        // create static scanner
+        static Scanner sc = new Scanner(System.in);
         String t = sc.nextLine();
         int tt = Integer.parseInt(t);
         System.out.println(tt);

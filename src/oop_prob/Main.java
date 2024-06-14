@@ -1,95 +1,73 @@
 import java.io.*;
 import java.lang.*;
-import java.util.*;
 import java.math.*;
+import java.util.*;
 
-class Money {
-    int euros;
-    int cents;
-    
-    Money(int euros, int cents) {
-        this.euros = euros;
-        this.cents = cents;
+abstract class Car {
+    protected double price;
+    protected int year;
+    Car(double price, int year) {
+        this.price = price;
+        this.year = year;
     }
-    
-    @Override
+
     public String toString() {
-        return String.format("%.2fe",euros + (double)cents/100.0);
+        return String.format("Price: %,.2f VND | Year: %d", calculateSalePrice(), year);
     }
-    
-    public Money plus(Money added) {
-        int totalEuros = this.euros + added.euros;
-        int totalCents = this.cents + added.cents;
-		if(this.cents + added.cents >= 100) {
-            totalEuros+=totalCents/100;
-            totalCents%=100;
-        }
-        return new Money(totalEuros, totalCents);
+
+    abstract double calculateSalePrice();
+}
+
+class SportCar extends Car {
+    SportCar(double price, int year) {
+        super(price, year);
     }
-    
-    public boolean lessThan(Money compared) {
-        int c1Euros = this.euros - compared.euros;
-        int c1Cents = this.cents - compared.cents;
-        // System.out.println(c1Euros);
-        // System.out.println(c1Cents);
-        if(c1Euros>0) return false;
-        else if(c1Euros==0) {
-            if(c1Cents>0) return false;
-            else return true;
-        } else {
-            return true;
-        }
+
+    double calculateSalePrice() {
+        double salePrice = price;
+        if(year>2018) salePrice = price*0.8;
+        else if(year>2010) salePrice = price*0.5;
+        else salePrice = price*0.1;
+        return salePrice;
     }
-    
-    public Money minus(Money minus) {
-        int subtractEuros = 0;
-        int subtractCents = 0;
-        if(lessThan(minus)) {
-            return new Money(0,0);
-        } else {
-            if(this.cents < minus.cents) {
-                subtractCents = this.cents + 100 - minus.cents;
-                subtractEuros = this.euros - minus.euros - 1;
-                return new Money(subtractEuros, subtractCents);
-            } else {
-                subtractCents = this.cents - minus.cents;
-                subtractEuros = this.euros - minus.euros;
-                return new Money(subtractEuros, subtractCents);
-            }
-        }
+}
+
+class ClassicCar extends Car {
+    ClassicCar(double price, int year) {
+        super(price, year);
+    }
+
+    double calculateSalePrice() {
+        return 1.12*price+2E7;
     }
 }
 
 public class Main {
+    static Scanner sc = new Scanner(System.in);
+    static Scanner getScanner() {
+        return sc;
+    }
     public static void main(String args[]) {
-        Money t1 = new Money(10, 8);
-        Money t2 = new Money(5, 5);
-
-        Money t3 = new Money(10, 0);
-        Money t4 = new Money(3, 0);
-        Money t5 = new Money(5, 0);
-        Money t6 = new Money(3, 50);
-
-        String m1 = t1.toString();
-        String m2 = t2.toString();
-        System.out.println(m1);
-        System.out.println(m2);
-        Money sum1 = t1.plus(t2);
-        System.out.println(sum1.toString());
-        boolean b1 = t3.lessThan(t4);
-        boolean b2 = t4.lessThan(t5);
-        System.out.println(b1);
-        System.out.println(b2);
-
-        String m3 = t3.toString();
-        String m6 = t6.toString();
-        System.out.println(m3);
-        System.out.println(m6);
-
-        Money sub1 = t3.minus(t6);
-        System.out.println(sub1.toString());
-        Money sub2 = sub1.minus(t3);
-        System.out.println(sub2.toString());
-
+        Scanner sc = getScanner();
+        int tt = Integer.parseInt(sc.nextLine());
+        double maxPrice = -1;
+        while(tt-->0) {
+            String[] line = sc.nextLine().split(" ");
+            String type = line[0];
+            double price = Double.parseDouble(line[1]);
+            int year = Integer.parseInt(line[2]);
+            Car c = createCar(type, price, year);
+            System.out.println(c.toString());
+            maxPrice = Math.max(maxPrice, c.calculateSalePrice());
+        }
+        System.out.printf("Most Expensive: %,.2f VND", maxPrice);
+        
+    }
+    private static Car createCar(String type, double price, int year) {
+        if(type.equals("SC")) {
+            return new SportCar(price, year);
+        } else {
+            return new ClassicCar(price, year);
+        }
     }
 }
